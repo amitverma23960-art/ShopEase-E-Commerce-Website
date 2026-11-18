@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShopEase | Online Store</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Navbar -->
+    <header class="navbar">
+        <div class="logo">ShopEase</div>
+
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#categories">Categories</a>
+            <a href="#products">Products</a>
+            <a href="#dashboardSection">Dashboard</a>
+        </nav>
+
+        <button class="shop-btn" id="cartBtn">
+            Cart (<span id="cartCount">0</span>)
+        </button>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Discover Your Style</h1>
+            <p>Explore quality products at amazing prices.</p>
+            <a href="#products" class="shop-btn">Shop Now</a>
+        </div>
+
+        <div class="hero-image">
+            <img
+                src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=800&q=80"
+                alt="Featured sneaker"
+            >
+        </div>
+    </section>
+
+    <!-- Dashboard -->
+    <section id="dashboardSection">
+        <h2>Admin Dashboard</h2>
+        <p>Store Overview</p>
+
+        <div class="dashboard-grid">
+            <div class="dashboard-card">
+                <h3>Total Products</h3>
+                <p id="totalProducts">0</p>
+            </div>
+
+            <div class="dashboard-card">
+                <h3>Total Orders</h3>
+                <p id="totalOrders">0</p>
+            </div>
+
+            <div class="dashboard-card">
+                <h3>Total Revenue</h3>
+                <p id="totalRevenue">₹0</p>
+            </div>
+
+            <div class="dashboard-card">
+                <h3>Pending Orders</h3>
+                <p id="pendingOrders">0</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories -->
+    <section id="categories">
+        <h2>Shop By Category</h2>
+
+        <div id="categoryContainer">
+            <button class="category-card category-btn active" data-category="All">
+                All
+            </button>
+
+            <button class="category-card category-btn" data-category="Fashion">
+                Fashion
+            </button>
+
+            <button class="category-card category-btn" data-category="Electronics">
+                Electronics
+            </button>
+
+            <button class="category-card category-btn" data-category="Accessories">
+                Accessories
+            </button>
+
+            <button class="category-card category-btn" data-category="Home">
+                Home
+            </button>
+        </div>
+    </section>
+
+    <!-- Products -->
+    <section id="products">
+        <h2>Our Products</h2>
+
+        <div class="product-tools">
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Search products..."
+            >
+
+            <select id="sortSelect">
+                <option value="default">Sort Products</option>
+                <option value="low">Price: Low to High</option>
+                <option value="high">Price: High to Low</option>
+            </select>
+        </div>
+
+        <div id="productContainer"></div>
+    </section>
+
+    <!-- Cart -->
+    <section id="cartSection" hidden>
+        <h2>Your Shopping Cart</h2>
+
+        <div id="cartItems"></div>
+
+        <h3>Total: ₹<span id="cartTotal">0</span></h3>
+
+        <button class="shop-btn" id="checkoutBtn">
+            Proceed to Checkout
+        </button>
+    </section>
+
+    <!-- Checkout -->
+    <section id="checkoutSection" hidden>
+        <h2>Checkout</h2>
+
+        <form id="checkoutForm">
+            <input
+                type="text"
+                id="customerName"
+                placeholder="Full Name"
+                required
+            >
+
+            <input
+                type="email"
+                id="customerEmail"
+                placeholder="Email Address"
+                required
+            >
+
+            <textarea
+                id="customerAddress"
+                placeholder="Delivery Address"
+                required
+            ></textarea>
+
+            <button type="submit" class="shop-btn">
+                Place Order
+            </button>
+
+            <button type="button" class="shop-btn" id="cancelCheckoutBtn">
+                Cancel
+            </button>
+        </form>
+    </section>
+
+    <!-- Order Management -->
+    <section id="orderManagement">
+        <h2>Order Management</h2>
+
+        <button class="shop-btn" id="refreshOrdersBtn">
+            Refresh Orders
+        </button>
+
+        <div id="orderList"></div>
+    </section>
+
+    <!-- Add Product -->
+    <section id="adminSection">
+        <h2>Admin Panel - Add Product</h2>
+
+        <form id="productForm">
+            <input
+                type="text"
+                id="productName"
+                placeholder="Product Name"
+                required
+            >
+
+            <textarea
+                id="productDescription"
+                placeholder="Product Description"
+                required
+            ></textarea>
+
+            <input
+                type="number"
+                id="productPrice"
+                placeholder="Price"
+                min="1"
+                required
+            >
+
+            <select id="productCategory" required>
+                <option value="">Select Category</option>
+                <option value="Fashion">Fashion</option>
+                <option value="Electronics">Electronics</option>
+                <option value="Accessories">Accessories</option>
+                <option value="Home">Home</option>
+            </select>
+
+            <input
+                type="url"
+                id="productImage"
+                placeholder="Product Image URL"
+                required
+            >
+
+            <input
+                type="number"
+                id="productStock"
+                placeholder="Stock Quantity"
+                min="0"
+                required
+            >
+
+            <button type="submit" class="shop-btn">
+                Add Product
+            </button>
+        </form>
+
+        <h2>Manage Products</h2>
+
+        <div id="adminProductList"></div>
+    </section>
+
+    <!-- Edit Product -->
+    <section id="editProductSection" hidden>
+        <h2>Edit Product</h2>
+
+        <form id="editProductForm">
+            <input type="hidden" id="editProductId">
+
+            <input
+                type="text"
+                id="editProductName"
+                placeholder="Product Name"
+                required
+            >
+
+            <textarea
+                id="editProductDescription"
+                placeholder="Product Description"
+                required
+            ></textarea>
+
+            <input
+                type="number"
+                id="editProductPrice"
+                placeholder="Price"
+                min="1"
+                required
+            >
+
+            <select id="editProductCategory" required>
+                <option value="Fashion">Fashion</option>
+                <option value="Electronics">Electronics</option>
+                <option value="Accessories">Accessories</option>
+                <option value="Home">Home</option>
+            </select>
+
+            <input
+                type="url"
+                id="editProductImage"
+                placeholder="Product Image URL"
+                required
+            >
+
+            <input
+                type="number"
+                id="editProductStock"
+                placeholder="Stock Quantity"
+                min="0"
+                required
+            >
+
+            <button type="submit" class="shop-btn">
+                Update Product
+            </button>
+
+            <button type="button" class="shop-btn" id="cancelEditBtn">
+                Cancel Edit
+            </button>
+        </form>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2026 ShopEase. All rights reserved.</p>
+        <p>Designed for a learning project.</p>
+    </footer>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
