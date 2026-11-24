@@ -70,15 +70,28 @@ const products = [
 
 async function seedProducts() {
     try {
-        await mongoose.connect("mongodb://127.0.0.1:27017/ecommerceDB");
-        await Product.deleteMany({});
-        await Product.insertMany(products);
+        if (!process.env.MONGODB_URI) {
+            throw new Error("MONGODB_URI environment variable is missing");
+        }
 
-        console.log("Products added successfully!");
+        await mongoose.connect(process.env.MONGODB_URI);
+
+        console.log("MongoDB Atlas Connected!");
+
+        for (const product of products) {
+            await Product.updateOne(
+                { name: product.name },
+                { $set: product },
+                { upsert: true }
+            );
+        }
+
+        console.log("8 products added/updated successfully!");
     } catch (error) {
-        console.log(error);
+        console.error("Seed Error:", error.message);
     } finally {
         await mongoose.disconnect();
+        console.log("Database connection closed.");
     }
 }
 
