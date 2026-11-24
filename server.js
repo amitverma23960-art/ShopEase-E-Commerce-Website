@@ -8,7 +8,8 @@ const app = express();
 app.use(express.json());
 app.use(express.static("public"));
 
-mongoose.connect("mongodb://127.0.0.1:27017/ecommerceDB")
+// MongoDB Cloud Connection
+mongoose.connect(process.env.MONGODB_URI)
     .then(() => console.log("MongoDB Connected Successfully!"))
     .catch(error => console.log("MongoDB Error:", error));
 
@@ -178,8 +179,8 @@ app.patch("/api/orders/:id/status", async (req, res) => {
     }
 });
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
-    console.log(`Server running at http://localhost:${PORT}`);
+    console.log(`Server running on port ${PORT}`);
 });
